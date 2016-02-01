@@ -36,7 +36,7 @@
                         <span class="price">{{product.prices[0].effectiveAmount | currency: currencySymbol}}</span>
                         <span class="priceUnit" ng-if="product.prices[0].measurementUnit">{{product.prices[0].measurementUnit.quantity}} {{product.prices[0].measurementUnit.unitCode}}</span>
                     </div>
-    
+
                     <div class="taxMessage" ng-if="!!taxConfiguration && taxConfiguration.label">
                         {{taxConfiguration.label}}
                     </div>
@@ -47,11 +47,11 @@
                                 <div class="form-group input-group qty">
                                     <label class="input-group-addon control-label" for="qty" >{{'QTY' | translate}}: </label>
                                     <input quantity-input type="number" id="qty" min="1" step="1" pattern="\d*" class="form-control quantity"
-                                        ng-model="productDetailQty" ng-change="changeQty(event)">
+                                           ng-model="productDetailQty" ng-change="changeQty(event)">
                                 </div>
                             </div>
-                        </div>  
-    
+                        </div>
+
                         <div class="row">
                             <div ng-if="error" class="col-md-12 col-lg-12">
                                 <div class="error" >
@@ -74,21 +74,50 @@
         </div>
     </section>
 
-    <section class="gray">
-        <div class="row">
-            <div ng-class="{'col-md-6' : hasAnyOfAttributesSet(product.product)}">
-                <div class="headline">{{'PRODUCT_DESCRIPTION' | translate}}</div>
-                <div class="description">
-                    {{product.product.description}}
-                </div>
-            </div>
+    <div class="container-fluid">
+        <ul id="product-details-nav" class = "nav nav-tabs tabs-border-bottom">
+            <li >
+                <a href = "#details" data-toggle = "tab">
+                    {{'PRODUCT_DESCRIPTION' | translate}}
+                </a>
+            </li>
+            <li>
+                <a href = "#attributes" data-toggle = "tab">
+                    {{'PRODUCT_DETAILS' | translate}}
+                </a>
+            </li>
+            <li class = "active">
+                <a href = "#reviews" data-toggle = "tab">
+                    {{'Reviews' | translate}}
+                    <span ng-if="reviewsQuantity > 0">(<span ng-bind-html="reviewsQuantity"></span>)</span>
+                </a>
+            </li>
+        </ul>
 
-            <div class="col-md-6" ng-if="hasAnyOfAttributesSet(product.product)">
-                <div class="headline">{{'PRODUCT_DETAILS' | translate}}</div>
-                <product-attribute-groups product="product.product"></product-attribute-groups>
-            </div>
-        </div>
-    </section>
+        <section >
+            <div id = "myTabContent" class = "tab-content">
+                <div  class = "tab-pane fade " id = "details" >
+                    <div class="description">
+                        {{product.product.description}}
+                    </div>
+                </div>
+
+                <div class = "tab-pane fade" id = "attributes" ng-if="hasAnyOfAttributesSet(product.product)">
+                    <product-attribute-groups product="product.product"></product-attribute-groups>
+                </div>
+
+                <div class = "tab-pane fade in active" id = "reviews">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <review-list product-id="product.product.id"></review-list>
+                        </div>
+                        <div class="col-md-6" >
+                            <review-form product-id="product.product.id" product-name="product.product.name"/>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    </div>
 </div>
 
 <script src="js/vendor-static/jquery.min.js"></script>

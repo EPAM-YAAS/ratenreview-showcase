@@ -17,8 +17,8 @@ angular.module('ds.products')
      * Listens to the 'cart:updated' event.  Once the item has been added to the cart, and the updated
      * cart information has been retrieved from the service, the 'cart' view will be shown.
      */
-    .controller('ProductDetailCtrl', ['$scope', '$rootScope', 'CartSvc', 'product', 'lastCatId', 'settings', 'GlobalData', 'CategorySvc','$filter', 'ProductAttributeSvc', '$modal', 'shippingZones',
-        function($scope, $rootScope, CartSvc, product, lastCatId, settings, GlobalData, CategorySvc, $filter, ProductAttributeSvc, $modal, shippingZones) {
+    .controller('ProductDetailCtrl', ['$scope', '$rootScope', 'CartSvc', 'product', 'lastCatId', 'settings', 'GlobalData', 'CategorySvc','$filter', 'ProductAttributeSvc', '$modal', 'shippingZones', 'RateSvc', 'ReviewSvc',
+        function($scope, $rootScope, CartSvc, product, lastCatId, settings, GlobalData, CategorySvc, $filter, ProductAttributeSvc, $modal, shippingZones, RateSvc, ReviewSvc) {
             var modalInstance;
             
             $scope.product = product;
@@ -142,4 +142,19 @@ angular.module('ds.products')
             $scope.hasAnyOfAttributesSet = function(product){
                 return ProductAttributeSvc.hasAnyOfAttributesSet(product);
             };
-}]);
+
+            $scope.rating = {
+                averageRating: 0,
+                count: 0
+            };
+
+            $scope.reviewsQuantity = 0;
+
+            RateSvc.getRatingByProductId($scope.product.product.id,function(data){
+                $scope.rating = data;
+            });
+
+            ReviewSvc.getReviewQuantityFor($scope.product.product.id, function(data) {
+                $scope.reviewsQuantity = data.value;
+            });
+        }]);
