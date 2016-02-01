@@ -51,4 +51,6 @@ ReviewSvc.getReviewQuantityFor($scope.product.product.id, function(data) {
 
 **9.** Added reviews will appear in Builder of your apllication.
 
-#### Good luck!
+### Good luck and use Rate and Review!
+
+![ScreenShot](https://raw.github.com/Yevhenii-Melnyk/example-epam-rate-n-review/master/images/rate-review-directives.png)
