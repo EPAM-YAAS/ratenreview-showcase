@@ -1,6 +1,6 @@
 # Example "Rate and Review" usage
 
-This repo exposes usage of [EPAM's Rate and Review](https://github.com/Yevhenii-Melnyk/epam-rate-n-review) ui components
+This repo exposes usage of [EPAM's Rate and Review](https://github.com/EPAM-YAAS/ratenreview) ui components
 
 ## Get Started
 
