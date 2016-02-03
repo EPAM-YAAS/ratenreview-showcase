@@ -53,4 +53,4 @@ ReviewSvc.getReviewQuantityFor($scope.product.product.id, function(data) {
 
 ### Good luck and use Rate and Review!
 
-![ScreenShot](https://raw.github.com/Yevhenii-Melnyk/example-epam-rate-n-review/master/images/rate-review-directives.png)
+![ScreenShot](https://raw.github.com/EPAM-YAAS/ratenreview-showcase/master/images/rate-review-directives.png)
