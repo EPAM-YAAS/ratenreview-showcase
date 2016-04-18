@@ -17,6 +17,7 @@
     "jquery": "latest",
     "angular": "~1.3.0",
     "angular-resource": "latest",
+    "angular-animate": "~1.3.0",
     "angular-ui-router": "~0.2.11",
     "angular-mocks": "~1.3.0",
     "angular-translate": "~2.4.0",
@@ -35,7 +36,8 @@
     "angular-touch": "~1.3.0",
     "algoliasearch": "2.9.2",
     "yamm3": "1.1.0",
-    "epam-rate-n-review": "1.0.0"
+    "angular-ui-notification ":"latest",
+    "angular-spinner": "~0.8.0"
   },
   "install": {
     "path": {

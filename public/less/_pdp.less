@@ -205,3 +205,37 @@
   
   
 }
+
+.review-form-body {
+  .description {
+    p {
+      .messages-block;
+    }
+    @media  (max-width: @screen-sm-max) {
+      &{
+        text-align: center;
+      }
+    }
+  }
+  .login-button-holder {
+    text-align: center;
+    .btn-primary {
+      display: inline-block;
+    }
+  }
+}
+#myTabContent {
+  .back-button-holder {
+    position: fixed;
+    left: 0;
+    bottom: 75px;
+    width: 100%;
+    text-align: center;
+    z-index: 9999;
+    @media  (max-width: @screen-sm-max) {
+      &{
+        bottom: 130px;
+      }
+    }
+  }
+}

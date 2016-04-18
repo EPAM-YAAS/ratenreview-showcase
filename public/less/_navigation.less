@@ -579,6 +579,29 @@ a.signout{
     background: @defaultblue;
   }
 }
+.back-to-top-message-button {
+  display: inline-block;
+  height: 40px;
+  padding: 0 10px;
+  line-height: 14px;
+  background-color: @defaultblue;
+  color: @white;
+  border: 1px solid transparent;
+  z-index: 1000;
+  text-transform: capitalize;
+  width: 90%;
+  &:hover {
+    color: @white;
+    background: #004a80;
+    text-decoration: none;
+  }
+  &:focus {
+    outline: none;
+  }
+  .button-title {
+    margin-left: 5px;
+  }
+}
 
 .mobileLoginModal{
   section{

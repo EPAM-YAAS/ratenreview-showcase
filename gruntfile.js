@@ -5,7 +5,7 @@ var path = require('path');
 module.exports = function (grunt) {
 
     var host = process.env.VCAP_APP_HOST || '0.0.0.0';
-    var port = process.env.VCAP_APP_PORT || 9000;
+    var port = 9001;
 
     // Configuration Variables.
     var JS_DIR = 'public/js/app',
@@ -14,8 +14,9 @@ module.exports = function (grunt) {
         //--Set Parameters for Server Configuration----------------------------------------------------
         // Read npm argument and set the dynamic server environment or use default configuration.
         // Syntax example for npm 2.0 parameters: $ npm run-script singleProd -- --pid=xxx --cid=123
-        PROJECT_ID = grunt.option('pid') || 'ratereview',
-        CLIENT_ID = grunt.option('cid') || 'tubvMc1cQ3NwoaScMbH3nzFZR28Rc7u9',
+        PROJECT_ID = grunt.option('pid') || 'ratereview2',
+        CLIENT_ID = grunt.option('cid') || 'lpf3cGjWkv9jt6ZLzCwaa7slJFlTBZK2',
+
         REDIRECT_URI = 'http://example.com',
 
         PROJECT_ID_PATH = './public/js/app/shared/app-config.js',
@@ -35,7 +36,7 @@ module.exports = function (grunt) {
 
         watch: {
             js: {
-                files: [JS_DIR + '/**'],
+                files: [JS_DIR + '/**', 'gruntfile.js'],
                 tasks: ['jshint:all']
             },
             less: {
@@ -51,7 +52,7 @@ module.exports = function (grunt) {
             singleProdServer: {
                 options: {
                     server: path.resolve('./server/singleProdServer.js'),
-                    livereload: 35730, // use different port to avoid collision with client 'watch' operation
+                    livereload: 35731, // use different port to avoid collision with client 'watch' operation
                     serverreload: true,  // this will keep the server running, but may restart at a different port!!!
                     bases: [path.resolve('./server/singleProdServer.js')]
                 }
@@ -59,7 +60,7 @@ module.exports = function (grunt) {
             singleTenant: {
                 options: {
                     server: path.resolve('./server.js'),
-                    livereload: 35730, // use different port to avoid collision with client 'watch' operation
+                    livereload: 35731, // use different port to avoid collision with client 'watch' operation
                     serverreload: true,  // this will keep the server running, but may restart at a different port!!!
                     bases: [path.resolve('./server.js')]
                 }
@@ -67,7 +68,7 @@ module.exports = function (grunt) {
             multiTenant: {  // with livereload
                 options: {
                     server: path.resolve('./multi-tenant/multi-tenant-server.js'),
-                    livereload: 35730, // use different port to avoid collision with client 'watch' operation
+                    livereload: 35731, // use different port to avoid collision with client 'watch' operation
                     serverreload: true,  // this will keep the server running, but may restart at a different port!!!
                     bases: [path.resolve('./multi-tenant/multi-tenant-server.js')]
                 }

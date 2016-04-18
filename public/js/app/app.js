@@ -43,6 +43,7 @@ window.app = angular.module('ds.app', [
     'ds.appconfig',
     'ds.searchlist',
     'ds.ysearch',
+    'ngAnimate',
     'epam.review'
 ])
     .constant('_', window._)
@@ -141,5 +142,3 @@ window.app = angular.module('ds.app', [
         }
 
     ]);
-
-

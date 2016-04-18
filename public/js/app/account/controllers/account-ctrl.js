@@ -13,13 +13,17 @@
 
 angular.module('ds.account')
 
-    .controller('AccountCtrl', ['$scope', 'addresses', 'account', 'orders', 'OrderListSvc', 'AccountSvc', '$modal', 'GlobalData', '$translate',
+    .controller('AccountCtrl', ['$scope', '$state', 'addresses', 'account', 'orders', 'OrderListSvc', 'AccountSvc', '$modal', '$filter', 'GlobalData', '$translate', 'AuthDialogManager', '$rootScope',
 
-        function ($scope, addresses, account, orders, OrderListSvc, AccountSvc, $modal, GlobalData, $translate) {
+        function ($scope, $state, addresses, account, orders, OrderListSvc, AccountSvc, $modal, $filter, GlobalData, $translate, AuthDialogManager, $rootScope) {
 
             var modalInstance;
+            var originalAccountData;
             var customerNumber = !!account ? account.customerNumber : null;
-
+            var notSet = '';
+            $translate('NOT_SET').then(function(value){
+                notSet = value;
+            });
             var getDefaultAddress = function () {
                 return _.find($scope.addresses, function (addr) {
                     return addr.isDefault;
@@ -28,6 +32,7 @@ angular.module('ds.account')
 
             $scope.errors = [];
             $scope.account = account;
+            $rootScope.currentUser = $scope.account;
             $scope.addresses = addresses;
             $scope.orders = orders;
             $scope.defaultAddress = getDefaultAddress();
@@ -43,6 +48,38 @@ angular.module('ds.account')
             $scope.showAllOrdersButton = true;
             $scope.showOrderButtons = ($scope.orders.length >= $scope.showOrdersDefault);
             $scope.showOrdersFilter = $scope.showOrdersDefault;
+
+            $scope.titles = GlobalData.getUserTitles();
+
+            $scope.editAccountInfo = function(mtype){
+                $scope.mtype = mtype;
+                originalAccountData = angular.copy($scope.account);
+
+                modalInstance = $modal.open({
+                    templateUrl: 'js/app/account/templates/editUser-dialog.html',
+                    scope: $scope
+                });
+            };
+
+            $scope.closeEditUserDialog = function(){
+               $scope.account = originalAccountData;
+               modalInstance.close();
+            };
+
+            $scope.updateUserInfo = function(){
+              var account = angular.copy($scope.account);
+
+                var emailRegexp = GlobalData.getEmailRegEx();
+
+                if ($scope.mtype === 'email' && !emailRegexp.test(account.contactEmail)) {
+                    return $translate('PLEASE_ENTER_VALID_EMAIL');
+                }
+
+              AccountSvc.updateAccount(account).then(function(){
+                  modalInstance.close();
+              });
+            };
+
 
             var extractServerSideErrors = function (response) {
                 var errors = [];
@@ -84,7 +121,8 @@ angular.module('ds.account')
                         function (response) {
                             $scope.errorAddressId = null;
                             $scope.errors = extractAddressErrors(response, $translate.instant('SAVE_ADDRESS_ERROR'));
-                        });
+                        }
+                    );
                 } else {
                     $scope.showPristineErrors = true;
                 }
@@ -120,8 +158,8 @@ angular.module('ds.account')
                     backdrop: 'static'
                 });
 
-                modalInstance.opened.then(function () {
-                    setTimeout(function () {
+                modalInstance.opened.then(function() {
+                    setTimeout(function() {
                         // once dialog is open initialize dynamic localized address.
                         $scope.$emit('localizedAddress:updated', address.country, 'addAddress');
                     }, 10);
@@ -138,22 +176,20 @@ angular.module('ds.account')
 
             $scope.removeAddress = function (address) {
                 address.account = customerNumber;
-
-                $modal.open({
-                    templateUrl: 'js/app/account/templates/dialogs/address-remove-dialog.html',
-                    controller: 'AddressRemoveDialogCtrl'
-                }).result.then(function (deleteAddress) {
-
-                    if (deleteAddress) {
-                        AccountSvc.removeAddress(address)
-                            .then(function () {
+                $translate('CONFIRM_ADDRESS_REMOVAL').then(function( msg){
+                    if (window.confirm(msg)) {
+                        AccountSvc.removeAddress(address).then(
+                            function () {
                                 $scope.refreshAddresses();
-                            }, function (response) {
+                            },
+                            function (response) {
                                 $scope.errorAddressId = address.id;
                                 $scope.errors = extractAddressErrors(response, $translate.instant('REMOVE_ADDRESS_ERROR'));
-                            });
+                            }
+                        );
                     }
                 });
+
             };
 
             $scope.refreshAddresses = function () {
@@ -161,7 +197,7 @@ angular.module('ds.account')
                     $scope.addresses = addresses;
                     $scope.defaultAddress = getDefaultAddress();
                     $scope.showAddressButtons = ($scope.addresses.length > $scope.showAddressDefault);
-                    $scope.showAllAddressButton = ($scope.addresses.length > $scope.showAddressFilter - 1);
+                    $scope.showAllAddressButton = ($scope.addresses.length > $scope.showAddressFilter-1);
                 });
             };
 
@@ -209,6 +245,12 @@ angular.module('ds.account')
                     $scope.showAddressFilter = $scope.showAllAddressButton ? $scope.showAddressDefault : $scope.addresses.length;
                     $scope.showAddressButtons = ($scope.addresses.length > $scope.showAddressDefault);
                 });
+            };
+
+
+
+            $scope.updatePassword = function () {
+                AuthDialogManager.showUpdatePassword();
             };
 
             /*

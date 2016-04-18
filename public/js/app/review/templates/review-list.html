@@ -1,0 +1,11 @@
+<div>
+
+  <span spinner spinner-shown="$root.spinnerShown"></span>
+
+  <review ng-repeat="review in reviews" review="review"></review>
+
+  <h3 ng-if="reviews.length==0" style="text-align: center">No reviews</h3>
+
+  <show-more on-show-more="onShowMore()" ng-if="canShowMore"></show-more>
+
+</div>

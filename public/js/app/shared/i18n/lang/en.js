@@ -43,8 +43,6 @@ angular.module('ds.i18n')
         //XFLD
         "PREVIEW_ORDER": "Preview Order",
         //XFLD
-        "PLEASE_CORRECT_MESSAGE_ERRORS": "Something went wrong, please try again",
-        //XFLD
         "FREE_SHIPPING": "Free Shipping and Returns in the US",
         //XFLD
         "ITEM": "Item",
@@ -146,10 +144,6 @@ angular.module('ds.i18n')
         "PLACED_AT": "Placed At",
         //XMSG
         "PLEASE_CORRECT_ERRORS": "Please correct the errors above before placing your order.",
-        //XMSG
-        "PLEASE_CORRECT_ERRORS_PREVIEW": "Please correct the errors above before previewing your order.",
-        //XMSG
-        "PLEASE_CORRECT_ERRORS_ADDRESS": "Please correct the address details before previewing your order.",
         //XMSG
         "PLEASE_ENTER_VALID_CC": "Please enter a valid credit card number",
         //XMSG
@@ -310,16 +304,16 @@ angular.module('ds.i18n')
 
 
         //XFLD
-        "SHIPPING_INFORMATION": "Shipping information",
+        SHIPPING_INFORMATION: 'Shipping information',
         //XFLD
-        "SHIPPING_ZONE": "Shipping Zone",
-        //XFLD
-        "STANDARD_SHIPPING": "Standard Shipping",
-        //XFLD
-        "SHIPPING_RATE": "Shipping Rate",
-        //XFLD
-        "ZONE": "Zone",
+        SHIPPING_ZONE: 'Shipping Zone',
 
+        //XFLD
+        STANDARD_SHIPPING: 'Standard Shipping',
+        //XFLD
+        SHIPPING_RATE: 'Shipping Rate',
+        //XFLD
+        ZONE: 'Zone',
         //XBUT
         "BUY": "Buy",
         //XBUT
@@ -334,8 +328,6 @@ angular.module('ds.i18n')
         "QTY": "Qty",
         //XMSG
         "INCLUDES": 'Includes',
-        //XMSG
-        "DESTINATION_COUNTRY": 'Destination country(s)',
         //XMSG
         "NO_LIMIT": 'No Limit',
         //XMSG
@@ -389,10 +381,8 @@ angular.module('ds.i18n')
         // Account Page
         //-------------------------------------------------
 
-        //XTIT
-        "UPDATE_ACCOUNT_DETAILS": "Update Account details",
-	    //XTIT
-        "UPDATE_EMAIL": "Update Email",
+        //XFLD
+        "ACCOUNT_DETAILS": "Account details",
         //XBUT
         "ADD": "Add",
         //XFLD
@@ -411,10 +401,8 @@ angular.module('ds.i18n')
         "CLOSE": "Close",
         //XFLD
         "COMPANY_NAME": "Company",
-	    //XTIT
-        "CONFIRM_DELETE_ADDRESS_TITLE": "Delete Address",
         //XMSG
-        "CONFIRM_ADDRESS_REMOVAL": "Are you sure you want to delete this address?",
+        "CONFIRM_ADDRESS_REMOVAL": "Are you sure you want to remove the address?",
         //XFLD
         "FULL_NAME": "Full Name",
         //XFLD
@@ -652,9 +640,7 @@ angular.module('ds.i18n')
         "SEARCH_UNAVAILABLE": "Search is currently unavailable.",
         //XMSG
         "NO_RESULTS_FOUND":"No results found.",
-        //XFLD
-        "IN":"in",
-
+        
         //XFLD
         //-------------------------------------------------
         // FOOTER

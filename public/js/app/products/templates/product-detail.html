@@ -27,6 +27,9 @@
                     <h1 class="pageTitle">
                         {{product.product.name}}
                     </h1>
+                    <div>
+                        <partial-star-ratings review-score="{{rating.averageRating}}"></partial-star-ratings>
+                    </div>
                     <div ng-if="product.prices[0].salePrice" class="price">
                         <span class="price originalPrice"><strike>{{ product.prices[0].originalAmount | currency: currencySymbol }}</strike></span>
                         <span class="price salesPrice">{{product.prices[0].effectiveAmount | currency: currencySymbol}}</span>
@@ -47,7 +50,7 @@
                                 <div class="form-group input-group qty">
                                     <label class="input-group-addon control-label" for="qty" >{{'QTY' | translate}}: </label>
                                     <input quantity-input type="number" id="qty" min="1" step="1" pattern="\d*" class="form-control quantity"
-                                           ng-model="productDetailQty" ng-change="changeQty(event)">
+                                        ng-model="productDetailQty" ng-change="changeQty(event)">
                                 </div>
                             </div>
                         </div>
@@ -64,60 +67,66 @@
                                 <button id="buy-button" ng-show="{{product.product.mixins.inventory.inStock}}" class="btn btn-primary " ng-click="addToCartFromDetailPage()" ng-disabled="!buyButtonEnabled">{{'ADD_TO_CART' | translate}}</button>
                                 <button id="out-of-stock-btn" ng-show="{{!product.product.mixins.inventory.inStock}}" class="btn btn-primary ">{{'OUT_OF_STOCK' | translate}}</button>
                             </div>
-                            <div class="col-xs-12" ng-if="!noShippingRates">
+                            <div class="col-xs-12">
                                 <a href=""><span ng-click="showShippingRates()">Shipping Rates</span></a>
                             </div>
                         </div>
                     </form>
-                </div> 
+                </div>
             </div>
         </div>
     </section>
 
     <div class="container-fluid">
         <ul id="product-details-nav" class = "nav nav-tabs tabs-border-bottom">
-            <li >
-                <a href = "#details" data-toggle = "tab">
-                    {{'PRODUCT_DESCRIPTION' | translate}}
-                </a>
-            </li>
-            <li>
-                <a href = "#attributes" data-toggle = "tab">
-                    {{'PRODUCT_DETAILS' | translate}}
-                </a>
-            </li>
-            <li class = "active">
-                <a href = "#reviews" data-toggle = "tab">
-                    {{'Reviews' | translate}}
-                    <span ng-if="reviewsQuantity > 0">(<span ng-bind-html="reviewsQuantity"></span>)</span>
-                </a>
-            </li>
+          <li >
+            <a href = "#details" data-toggle = "tab">
+              {{'PRODUCT_DESCRIPTION' | translate}}
+            </a>
+          </li>
+          <li>
+            <a href = "#attributes" data-toggle = "tab">
+              {{'PRODUCT_DETAILS' | translate}}
+            </a>
+          </li>
+          <li class = "active">
+            <a href = "#reviews" data-toggle = "tab">
+              {{'Reviews' | translate}}
+              <span class="review-quantity" ng-if="reviewsQuantity > 0">(<span ng-bind-html="reviewsQuantity"></span>)</span>
+            </a>
+          </li>
         </ul>
 
         <section >
-            <div id = "myTabContent" class = "tab-content">
-                <div  class = "tab-pane fade " id = "details" >
-                    <div class="description">
-                        {{product.product.description}}
-                    </div>
-                </div>
+          <div id = "myTabContent" class = "tab-content">
+            <div  class = "tab-pane fade " id = "details" >
+              <div class="description">
+                {{product.product.description}}
+              </div>
+            </div>
 
-                <div class = "tab-pane fade" id = "attributes" ng-if="hasAnyOfAttributesSet(product.product)">
-                    <product-attribute-groups product="product.product"></product-attribute-groups>
-                </div>
+            <div class = "tab-pane fade" id = "attributes" ng-if="hasAnyOfAttributesSet(product.product)">
+              <product-attribute-groups product="product.product"></product-attribute-groups>
+            </div>
 
-                <div class = "tab-pane fade in active" id = "reviews">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <review-list product-id="product.product.id"></review-list>
-                        </div>
-                        <div class="col-md-6" >
-                            <review-form product-id="product.product.id" product-name="product.product.name"/>
-                        </div>
-                    </div>
+            <div class = "tab-pane fade in active" id = "reviews">
+              <div class="row">
+                <div class="col-md-6">
+                  <review-list product-id="product.product.id"></review-list>
                 </div>
+                <div class="col-md-6" >
+                  <review-form product-id="product.product.id" product-name="product.product.name"/>
+                </div>
+            </div>
+          </div>
+          <div class="back-button-holder" >
+              <button type="button" id="to-top-btn" ng-click="backToTop()" class="btn btn-link back-to-top-button pull-left menu">
+                  <span class="hyicon hyicon-chevron-bold-up" />
+              </button>
+          </div>
         </section>
     </div>
+
 </div>
 
 <script src="js/vendor-static/jquery.min.js"></script>
@@ -126,5 +135,3 @@
 <script src="js/vendor-static/img-touch-canvas.js"></script>
 <script src="js/vendor-static/jquery.fullscreen-min.js"></script>
 <script src="js/vendor-static/main.js"></script>
-
-

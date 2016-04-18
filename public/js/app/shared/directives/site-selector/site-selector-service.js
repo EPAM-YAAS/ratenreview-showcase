@@ -13,8 +13,8 @@
 'use strict';
 
 angular.module('ds.shared')
-    .factory('SiteSelectorSvc', ['GlobalData', 'CartSvc', 'SiteSettingsREST',
-        function (GlobalData, CartSvc, SiteSettingsREST) {
+    .factory('SiteSelectorSvc', ['$rootScope', 'GlobalData', 'CartSvc', 'SiteSettingsREST',
+        function ($rootScope, GlobalData,  CartSvc, SiteSettingsREST) {
             
             return {
 

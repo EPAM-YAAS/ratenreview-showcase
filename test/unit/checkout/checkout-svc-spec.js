@@ -38,7 +38,7 @@ describe('CheckoutSvc', function () {
         address1: 'Bill Str. 14',
         city:    'Amarillo',
         state:  'TX',
-        zipCode: '79109',
+        zip: '79109',
         country: 'US'
     };
 
@@ -48,7 +48,7 @@ describe('CheckoutSvc', function () {
         city: 'Arvada',
         state: 'CO',
         country: 'US',
-        zipCode: '80005'
+        zip: '80005'
     };
 
     order.payment = {

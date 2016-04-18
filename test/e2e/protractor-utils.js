@@ -164,7 +164,6 @@ exports.switchSite = function (site) {
 };
 
 
-
 exports.loginHelper = function (userName, password) {
     // need to activate link first in real browser via hover
     browser.driver.actions().mouseMove(element(by.binding('SIGN_IN'))).perform();
@@ -179,11 +178,7 @@ exports.loginHelper = function (userName, password) {
     browser.sleep(1000);
 };
 
-exports.loadProductIntoCartAndVerifyCart = function (cartAmount, cartTotal) {
-    return tu.loadProductIntoCart(cartAmount, cartTotal, true)
-};
-
-exports.loadProductIntoCart = function(cartAmount, cartTotal, verify) {
+exports.loadProductIntoCart = function (cartAmount, cartTotal) {
     browser.wait(function () {
         return element(by.xpath(tu.whiteCoffeeMug)).isPresent();
     });
@@ -202,24 +197,20 @@ exports.loadProductIntoCart = function(cartAmount, cartTotal, verify) {
     tu.clickElement('id', tu.cartButtonId);
     tu.waitForCart();
     browser.sleep(2000);
-    if (verify) {
-        tu.verifyCartAmount(cartAmount);
-        tu.verifyCartTotal(cartTotal);
-    }
-}
+    tu.verifyCartAmount(cartAmount);
+    tu.verifyCartTotal(cartTotal);
+};
 
 //country is populated from localized-addresses.js
 exports.populateAddress = function (country, contact, street, aptNumber, city, state, zip, phone) {
     tu.clickElement('id', "add-address-btn");
     browser.sleep(1000);
-    // Now all the countries are presented in the ddlb, US is not anymore the first one
-    element(by.cssContainingText('option', country)).click();
-    //element(by.css('select option[value="' + country + '"]')).click();
+    element(by.css('select option[value="' + country + '"]')).click();
     tu.sendKeys('id', 'contactName', contact);
     tu.sendKeys('id', 'street', street);
     tu.sendKeys('id', 'streetAppendix', aptNumber);
     tu.sendKeys('id', 'city', city);
-    if (country === 'United States') {
+    if (country === '0') {
         element(by.css('select option[value="' + state + '"]')).click();
     } else {
         element(by.id('state')).sendKeys(state);
@@ -236,7 +227,7 @@ exports.createAccount = function (emailAddress) {
     tu.clickElement('id', 'login-btn');
     browser.sleep(1000);
     tu.clickElement('binding', 'CREATE_ACCOUNT');
-    tu.sendKeys('id', 'emailInput', emailAddress + timestamp + '@yaastest.com');
+    tu.sendKeys('id', 'emailInput', emailAddress + timestamp + '@hybristest.com');
     tu.sendKeys('id', 'newPasswordInput', 'password');
     tu.clickElement('id', 'create-acct-btn');
     browser.sleep(1000);
@@ -251,7 +242,6 @@ exports.fillCreditCardForm = function (ccNumber, ccMonth, ccYear, cvcNumber) {
     element(by.id('expYear')).sendKeys(ccYear);
     tu.sendKeys('id', 'cvc', cvcNumber);
 };
-
 
 exports.verifyOrderConfirmation = function (account, name, number, cityStateZip, price) {
     var email = account.toLowerCase();

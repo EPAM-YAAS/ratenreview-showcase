@@ -14,8 +14,8 @@
 
 angular.module('ds.products')
 /** Controller for the 'browse products' view.  */
-    .controller('BrowseProductsCtrl', ['$scope', '$rootScope', 'ProductSvc', 'GlobalData', 'CategorySvc', 'settings', 'category', '$state', '$location', '$timeout', '$anchorScroll',
-        function ($scope, $rootScope, ProductSvc, GlobalData, CategorySvc, settings, category, $state, $location, $timeout, $anchorScroll) {
+    .controller('BrowseProductsCtrl', ['$scope', '$rootScope', 'ProductSvc', 'GlobalData', 'CategorySvc', 'settings', 'category', '$state', '$location', '$timeout', '$anchorScroll','RateSvc',
+        function ($scope, $rootScope, ProductSvc, GlobalData, CategorySvc, settings, category, $state, $location, $timeout, $anchorScroll,RateSvc) {
 
             $scope.pageSize = GlobalData.products.pageSize;
             $scope.pageNumber = 0;
@@ -318,4 +318,22 @@ angular.module('ds.products')
                 $scope.refineContainerShowing = !$scope.refineContainerShowing;
             };
 
+            function getCommaSeparatedProductIds(){
+                var ids=[];
+                angular.forEach($scope.products,function(value){
+                    this.push(value.product.id);
+                },ids);
+                return ids.join();
+            }
+
+            $scope.rates={};
+            $scope.getRateAvgById = function (productId) {
+                var rate = $scope.rates[productId];
+                return rate ? rate.averageRating : null;
+            };
+            $scope.$watch('products', function() {
+                RateSvc.getRatingsByProductIds(getCommaSeparatedProductIds(),function(data){
+                    $scope.rates = data;
+                });
+            });
         }]);

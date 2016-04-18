@@ -17,13 +17,12 @@ angular.module('ds.products')
      * Listens to the 'cart:updated' event.  Once the item has been added to the cart, and the updated
      * cart information has been retrieved from the service, the 'cart' view will be shown.
      */
-    .controller('ProductDetailCtrl', ['$scope', '$rootScope', 'CartSvc', 'product', 'lastCatId', 'settings', 'GlobalData', 'CategorySvc','$filter', 'ProductAttributeSvc', '$modal', 'shippingZones', 'RateSvc', 'ReviewSvc',
+    .controller('ProductDetailCtrl', ['$scope', '$rootScope', 'CartSvc', 'product', 'lastCatId', 'settings', 'GlobalData', 'CategorySvc','$filter', 'ProductAttributeSvc', '$modal', 'shippingZones','RateSvc', 'ReviewSvc',
         function($scope, $rootScope, CartSvc, product, lastCatId, settings, GlobalData, CategorySvc, $filter, ProductAttributeSvc, $modal, shippingZones, RateSvc, ReviewSvc) {
             var modalInstance;
-            
+
             $scope.product = product;
             $scope.shippingZones = shippingZones;
-            $scope.noShippingRates = true;
             $scope.currencySymbol = GlobalData.getCurrencySymbol();
             // used by breadcrumb directive
             $scope.category = product.categories;
@@ -52,17 +51,6 @@ angular.module('ds.products')
                 }
             }
 
-            if ($scope.shippingZones.length) {
-                for (var j = 0; j < $scope.shippingZones.length; j++) {
-                    if ($scope.shippingZones[j].methods.length) {
-                        $scope.noShippingRates = false;
-                        break;
-                    }
-                }
-            } else {
-                $scope.noShippingRates = true;
-            }
-
             //Event that product is loaded
             $scope.$emit('product:opened', product);
 
@@ -85,18 +73,15 @@ angular.module('ds.products')
             //input default values must be defined in controller, not html, if tied to ng-model
             $scope.productDetailQty = 1;
             $scope.buyButtonEnabled = true;
-            
+
             $scope.showShippingRates = function(){
-                
+
                 modalInstance = $modal.open({
                     templateUrl: 'js/app/shared/templates/shipping-dialog.html',
                     scope: $scope
                 });
             };
 
-            $scope.closeShippingZonesDialog = function () {
-                modalInstance.close();
-            };
 
             // scroll to top on load
             window.scrollTo(0, 0);
@@ -117,7 +102,9 @@ angular.module('ds.products')
                 }
 
             });
-
+            $scope.backToTop = function () {
+                window.scrollTo(0, 0);
+            };
             $scope.$on('$destroy', unbind);
 
             /** Add the product to the cart.  'Buy' button is disabled while cart update is in progress. */
@@ -142,19 +129,19 @@ angular.module('ds.products')
             $scope.hasAnyOfAttributesSet = function(product){
                 return ProductAttributeSvc.hasAnyOfAttributesSet(product);
             };
-
+            
             $scope.rating = {
                 averageRating: 0,
                 count: 0
             };
-
+            
             $scope.reviewsQuantity = 0;
-
+            
             RateSvc.getRatingByProductId($scope.product.product.id,function(data){
                 $scope.rating = data;
             });
-
+            
             ReviewSvc.getReviewQuantityFor($scope.product.product.id, function(data) {
                 $scope.reviewsQuantity = data.value;
             });
-        }]);
+}]);

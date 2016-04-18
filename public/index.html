@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="js/vendor/angular-ui-select/dist/select.min.css">
     <link rel="stylesheet" href="css/app/style.css" type="text/css" media="screen, projection">
     <link href="js/vendor/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
-    <link href="js/vendor/epam-rate-n-review/dist/review.min.css" rel="stylesheet">
     <!-- endbuild -->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -27,9 +26,12 @@
         <div class="mainContent" ng-class="{'main-on-top': checkoutCartEditVisible }">
             <div ui-view="topNavigation"></div>
             <div class="main">
+
                 <div ui-view="main"></div>
                 <!--<div class="content-mask" ng-click="closeOffcanvas()"></div>-->
+
             </div>
+
             <div ui-view="footer"></div>
 
         </div>
@@ -42,6 +44,7 @@
     <!-- build:js js/storefront.js -->
     <script src="js/vendor-static/jquery.min.js"></script>
     <script src="js/vendor/angular/angular.js"></script>
+    <script src="js/vendor/angular-animate/angular-animate.min.js"></script>
     <script src="js/vendor/angular-mocks/angular-mocks.js"></script>
     <script src="js/vendor/angular-touch/angular-touch.js"></script>
     <script src="js/vendor/angular-cookie/angular-cookie.min.js"></script>
@@ -57,12 +60,13 @@
     <script src="js/vendor/angular-ui-select/dist/select.min.js"></script>
     <script src="js/vendor/algoliasearch/dist/algoliasearch.angular.js"></script>
     <script src="js/bootstrap.js"></script>
-    <script src="js/vendor/spin.js/spin.js"></script>
     <script src="js/app/shared/shared-index.js"></script>
     <script src="js/app/shared/settings.js"></script>
     <script src="js/app/shared/app-config.js"></script>
     <script src="js/app/shared/site-config.js"></script>
     <script src="js/app/shared/http-proxy.js"></script>
+    <script src="js/app/shared/spin.js"></script>
+    <script src="js/vendor/angular-spinner/angular-spinner.js"></script>
     <script src="js/app/shared/directives/quantity-input.js"></script>
     <script src="js/app/shared/directives/menu-aim.js"></script>
     <script src="js/app/shared/directives/match-background.js"></script>
@@ -74,6 +78,9 @@
     <script src="js/app/shared/directives/y-search.js"></script>
     <script src="js/app/shared/directives/y-inputs-dir.js"></script>
     <script src="js/app/shared/directives/force-scroll.js"></script>
+    <script src="js/app/shared/directives/scrollToElem.js"></script>
+    <script src="js/app/shared/directives/showBackToTopButton.js"></script>
+    <script src="js/app/shared/directives/spinner.js"></script>
     <script src="js/app/shared/services/cookie-svc.js"></script>
     <script src="js/app/shared/services/global-data.js"></script>
     <script src="js/app/shared/services/site-settings-rest.js"></script>
@@ -147,11 +154,6 @@
     <script src="js/app/account/account-index.js"></script>
     <script src="js/app/account/controllers/account-ctrl.js"></script>
     <script src="js/app/account/controllers/account-order-detail-ctrl.js"></script>
-    <script src="js/app/account/controllers/dialogs/address-remove-dialog-ctrl.js"></script>
-    <script src="js/app/account/controllers/modals/edit-user-name-dialog-ctrl.js"></script>
-    <script src="js/app/account/controllers/modals/edit-user-email-dialog-ctrl.js"></script>
-    <script src="js/app/account/directives/customer-details/customer-details-ctrl.js"></script>
-    <script src="js/app/account/directives/customer-details/customer-details-directive.js"></script>
     <script src="js/app/account/services/account-service.js"></script>
     <script src="js/app/auth/auth-index.js"></script>
     <script src="js/app/auth/controllers/auth-modal-dialog-ctrl.js"></script>
@@ -180,8 +182,24 @@
     <script src="js/app/shared/router.js"></script>
     <script src="https://js.stripe.com/v2/"></script>
 
-    <script src="js/vendor/angular-animate/angular-animate.min.js"></script>
-    <script src="js/vendor/epam-rate-n-review/dist/review.min.js"></script>
+    <script src="js/app/review/reviews-index.js"></script>
+    <script src="js/app/review/filters/ratings-filter.js"></script>
+    <script src="js/app/review/directives/review-list.js"></script>
+    <script src="js/app/review/directives/review.js"></script>
+    <script src="js/app/review/directives/ratings.js"></script>
+    <script src="js/app/review/directives/partial-star-ratings.js"></script>
+    <script src="js/app/review/directives/show-more.js"></script>
+    <script src="js/app/review/directives/review-form.js"></script>
+    <script src="js/app/review/directives/inputShowErrors.js"></script>
+    <script src="js/app/review/directives/comment.js"></script>
 
+    <script src="js/app/review/services/review-config.js"></script>
+    <script src="js/app/review/services/review-service.js"></script>
+    <script src="js/app/review/services/rate-service.js"></script>
+    <script src="js/app/review/services/vote-service.js"></script>
+    <script src="js/app/review/services/comments-service.js"></script>
+
+    <link rel="stylesheet" href="js/vendor/angular-ui-notification/dist/angular-ui-notification.min.css">
+    <script src="js/vendor/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
 </body>
 </html>
